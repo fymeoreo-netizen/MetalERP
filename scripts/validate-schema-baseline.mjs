@@ -55,7 +55,7 @@ const requiredObjects = [
   ["tables", /^CREATE TABLE /gm],
   ["functions", /^CREATE FUNCTION /gm],
   ["indexes", /^CREATE (?:UNIQUE )?INDEX /gm],
-  ["triggers", /^CREATE TRIGGER /gm],
+  ["triggers", /^CREATE (?:CONSTRAINT )?TRIGGER /gm],
   ["policies", /^CREATE POLICY /gm],
   ["RLS declarations", /^ALTER TABLE .* ENABLE ROW LEVEL SECURITY;/gm],
   ["grants", /^GRANT /gm],
