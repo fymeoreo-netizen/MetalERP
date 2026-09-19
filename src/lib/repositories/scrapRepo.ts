@@ -1,0 +1,67 @@
+export {
+    createScrapTradeDocument,
+    updateScrapTradeDocument,
+    createScrapReceiptDocument,
+    deleteScrapTradeDocument,
+    fetchNextScrapTradeNo,
+    fetchNextScrapReceiptNo,
+    fetchNextFactoryScrapDispatchNo,
+    fetchNextScrapConversionReturnNo,
+    createFactoryScrapDispatch,
+    updateFactoryScrapDispatch,
+    unpostFactoryScrapDispatch,
+    deleteFactoryScrapDispatch,
+    postFactoryScrapDispatch,
+    fetchFactoryScrapDispatches,
+    createScrapConversionReturn,
+    postScrapConversionReturn,
+    fetchMachineScrapLedger,
+    fetchFactoryScrapDispatchRegister,
+    fetchScrapObligationsForParty,
+    fetchPartyScrapCredits,
+    fetchPartyScrapExpectations,
+    fetchScrapPartySummary,
+    fetchScrapTollDropPartySummary,
+    fetchScrapPayableLots,
+    fetchScrapTradeRegister,
+    fetchScrapTrades,
+    fetchScrapTradePremiumLines,
+    fetchWattaMatrix,
+    upsertWattaMatrix,
+    deleteWattaMatrix,
+    resolveWatta,
+    savePremiumScrapAllocations,
+    postScrapTrade,
+    postScrapTradeWithAllocations,
+    fetchScrapPostingHealth,
+    postPendingScrapReceipts,
+    fetchDraftScrapReceipts,
+    type ScrapPostingHealth,
+    type DraftScrapReceiptRow,
+    type FactoryScrapDispatchRow,
+    type FactoryScrapDispatchLinePayload,
+    type FactoryScrapDispatchLineRow,
+    type FactoryScrapDispatchRegisterRow,
+    type MachineScrapLedgerRow,
+    type ScrapConversionObligationRow,
+} from "@/lib/api/scrap";
+export { postDocument } from "@/lib/api/posting";
+export { evaluateProductionAlerts } from "@/lib/api/production";
+
+export type { ScrapPartySummaryRow, ScrapTollDropPartyRow } from "@/lib/scrapTradeTypes";
+
+export type {
+    ScrapTradeApiRow,
+    ScrapTradeFormPayload,
+    ScrapTradeListItem,
+    ScrapTradeRegisterRow,
+    ScrapWastageRow,
+} from "@/lib/scrapTradeTypes";
+
+export {
+    mapScrapTradeApiRow,
+    applyPremiumLinesToListItem,
+    resolveScrapItemCode,
+    listScrapCatalogItems,
+    scrapItemLabel,
+} from "@/lib/scrapTradeTypes";

@@ -1,0 +1,347 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  body,
+  #root {
+    overflow-x: clip;
+  }
+
+  :root {
+    /* Pure White Background */
+    --background: 0 0% 100%;
+    /* Graphite Ink Text */
+    --foreground: 240 5.9% 10%;
+
+    /* White Cards with soft shadows */
+    --card: 0 0% 100%;
+    --card-foreground: 240 5.9% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 5.9% 10%;
+
+    /* Graphite Ink — minimal monochrome primary */
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Soft Neutral for Secondary actions */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Semantic tokens (previously referenced but undefined) */
+    --success: 142 71% 45%;
+    --success-foreground: 210 40% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 240 5.9% 10%;
+    --info: 203 89% 53%;
+    --info-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 240 4.9% 46%;
+
+    /* Sidebar — dark slate glass */
+    --sidebar-background: 222.2 47.4% 11.2%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 240 5.9% 10%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 20%;
+    --sidebar-ring: 212 20% 70%;
+
+    --radius: 0rem;
+    /* Boxy for Metro/Tile look */
+
+    /* Chart Colors (Light Mode) */
+    --chart-1: 221.2 83.2% 53.3%;
+    --chart-2: 210 29% 24%;
+    --chart-3: 199 89% 48%;
+    --chart-4: 25 95% 53%;
+    --chart-5: 0 84% 60%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 240 5.9% 10%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 69% 45%;
+    --success-foreground: 210 40% 98%;
+    --warning: 38 92% 55%;
+    --warning-foreground: 240 5.9% 10%;
+    --info: 203 87% 60%;
+    --info-foreground: 240 5.9% 10%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    /* Chart Colors (Dark Mode) */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer utilities {
+  /* Stable gutter for app scroll regions (staff main column, tall panels). */
+  .erp-scroll-region {
+    scrollbar-gutter: stable;
+  }
+
+  /* Slim, quiet scrollbars — Firefox + WebKit */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(228 232 238);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(203 213 225);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+/* Progressive scroll-linked entrance — pure CSS, zero JS.
+   Browsers without animation-timeline simply ignore this block. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: reveal-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 16%;
+    }
+
+    @keyframes reveal-rise {
+      from {
+        opacity: 0.4;
+        transform: translate3d(0, 10px, 0);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+  }
+}
+
+/* Party document print/PDF — explicit colors so html2canvas captures reliably */
+.party-document-root {
+  color: #0f172a;
+  background: #ffffff;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+.party-document-root table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.party-document-root th,
+.party-document-root td {
+  vertical-align: top;
+}
+
+.party-document-root .text-slate-900,
+.party-document-root h1,
+.party-document-root h2,
+.party-document-root h3 {
+  color: #0f172a;
+}
+
+.party-document-root .text-slate-600,
+.party-document-root .text-slate-500,
+.party-document-root .text-slate-700 {
+  color: #475569;
+}
+
+.party-document-root .text-blue-700 {
+  color: #1d4ed8;
+}
+
+@keyframes tab-panel-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/*
+ * Enter animation for active Radix tab panels (pages-within-pages:
+ * Sales Invoices/Returns/Orders tabs, Reports hub, Inventory tabs, …).
+ * Deliberately perceptible but brief — 260ms rise + fade.
+ * IMPORTANT: do NOT use animation-fill-mode `both` with from{opacity:0} —
+ * it fights Tailwind `animate-in` / `fade-in-0` on TabsContent and can leave
+ * the Reports Hub (and other tab canvases) permanently invisible.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [role="tabpanel"][data-state="active"] {
+    animation: tab-panel-enter 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* Tab triggers — smooth state transitions */
+[role="tab"] {
+  transition:
+    color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Interactive list rows / links — GPU-friendly hover */
+.motion-row-hover {
+  transition:
+    background-color 180ms ease-out,
+    border-color 180ms ease-out,
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motion-row-hover:hover {
+  transform: translate3d(0, -1px, 0);
+}
+
+/*
+ * Per-card hover lift — CSS so it always works alongside Framer entrance.
+ * NOTE: no permanent `will-change` here. A standing will-change promotes every
+ * card to its own compositor layer at rest, which rasterizes text on the GPU
+ * and renders it slightly blurry on large/high-DPI screens. Transitions this
+ * cheap don't need it.
+ */
+.motion-card-lift {
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motion-card-lift:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 10px 28px -14px rgba(15, 23, 42, 0.16);
+  border-color: rgb(203 213 225);
+}
+
+.motion-kpi-lift {
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motion-kpi-lift:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 8px 24px -12px rgba(15, 23, 42, 0.13);
+  border-color: rgb(203 213 225);
+}
+
+.motion-panel-lift {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motion-panel-lift:hover {
+  transform: translate3d(0, -1px, 0);
+  box-shadow: 0 10px 26px -14px rgba(15, 23, 42, 0.11);
+  border-color: rgb(203 213 225);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [role="tabpanel"][data-state="active"] {
+    animation: none;
+  }
+
+  .motion-row-hover:hover,
+  .motion-card-lift:hover,
+  .motion-kpi-lift:hover,
+  .motion-panel-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,7 @@
+project_id = "metal-erp-bounty"
+
+[api]
+enabled = true
+
+[db]
+major_version = 15

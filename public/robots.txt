@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /dashboard
+Disallow: /cashbook
+Disallow: /purchase
+Disallow: /sales
+Disallow: /reports
+Disallow: /masters
+Disallow: /admin
+Disallow: /auth/
+Disallow: /archive/
+Disallow: /production
+Disallow: /inventory
+Disallow: /parchis
+Disallow: /market
+Disallow: /scrap
+Disallow: /audit
+Disallow: /alerts

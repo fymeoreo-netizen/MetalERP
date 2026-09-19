@@ -1,0 +1,713 @@
+/* ERP report design system — screen preview + A4 print */
+
+/* ── Screen: document canvas ── */
+.report-workspace-canvas {
+    background: #f1f5f9;
+    border-radius: 0;
+    padding: 1rem;
+    opacity: 1;
+    transform: none;
+}
+
+@media (min-width: 640px) {
+    .report-workspace-canvas {
+        padding: 1.5rem;
+    }
+}
+
+.report-document-preview {
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.08),
+        0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+@media screen {
+    .report-document-preview {
+        max-width: 100%;
+    }
+
+    .report-workspace-canvas {
+        min-width: 0;
+        max-width: 100%;
+        padding: 0.75rem;
+    }
+
+    .report-print-document {
+        max-width: 100%;
+        padding: 0.75rem;
+    }
+
+    .report-print-controls {
+        max-width: 100%;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .report-workspace-canvas {
+        padding: 1.5rem;
+    }
+
+    .report-print-document {
+        padding: 1.5rem;
+    }
+}
+
+/* ── Shared table styles (screen + print) ── */
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+}
+
+.report-table--compact {
+    font-size: 0.6875rem;
+    line-height: 1.3;
+}
+
+.report-table th {
+    background: #e2e8f0;
+    color: #0f172a;
+    font-weight: 700;
+    text-align: left;
+    padding: 0.5rem 0.625rem;
+    border: 1px solid #cbd5e1;
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+
+.report-table--compact th {
+    padding: 0.3rem 0.4rem;
+    font-size: 0.625rem;
+}
+
+.report-table td {
+    padding: 0.4rem 0.625rem;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+    color: #0f172a;
+}
+
+.report-table--compact td {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.6875rem;
+}
+
+.report-table tbody tr:nth-child(even) td {
+    background: #f8fafc;
+}
+
+.report-table tfoot td {
+    font-weight: 700;
+    border-top: 2px solid #0f172a;
+    background: #f1f5f9;
+}
+
+.report-table th.text-right,
+.report-table td.text-right {
+    text-align: right;
+}
+
+.report-table .font-mono,
+.report-amount {
+    font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+    font-variant-numeric: tabular-nums;
+}
+
+.report-amount {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.report-amount--negative {
+    color: #be123c;
+}
+
+.report-amount--positive {
+    color: #047857;
+}
+
+.report-row-total td {
+    font-weight: 700;
+    background: #f1f5f9 !important;
+    border-top: 1px solid #94a3b8;
+}
+
+.report-row-highlight td {
+    background: #ecfdf5 !important;
+    font-weight: 700;
+}
+
+.report-row-highlight--negative td {
+    background: #fff1f2 !important;
+}
+
+.report-group-header td {
+    background: #e2e8f0 !important;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid #94a3b8;
+}
+
+.report-section-title {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #0f172a;
+    margin: 0.75rem 0 0.5rem;
+    padding-bottom: 0.125rem;
+    color: #0f172a;
+}
+
+.report-kpi-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.report-kpi-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.report-kpi-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.report-kpi-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 640px) {
+    .report-kpi-grid--4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.report-kpi {
+    border: 1px solid #cbd5e1;
+    border-radius: 0;
+    padding: 0.75rem;
+    text-align: center;
+    background: #fff;
+}
+
+.report-kpi__label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+}
+
+.report-kpi__value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 0.25rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.report-kpi__sub {
+    font-size: 0.625rem;
+    color: #64748b;
+    margin-top: 0.125rem;
+}
+
+.report-panel {
+    border: 1px solid #cbd5e1;
+    border-radius: 0;
+    padding: 0.75rem;
+    background: #f8fafc;
+}
+
+.report-panel__title {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #334155;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.25rem;
+}
+
+.report-meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0;
+    margin-bottom: 1.25rem;
+}
+
+.report-meta-strip__label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+}
+
+.report-meta-strip__value {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.report-pl-indent-1 td:first-child {
+    padding-left: 1.25rem;
+}
+
+.report-print-body--compact .report-table {
+    font-size: 0.6875rem;
+}
+
+.report-print-body--compact .report-table th,
+.report-print-body--compact .report-table td {
+    padding: 0.25rem 0.4rem;
+}
+
+/* ── Letterhead removed: header now only carries the period/meta bar ── */
+.report-print-header {
+    margin-bottom: 1rem;
+}
+
+.report-print-header__monogram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0;
+    background: #0f172a;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+}
+
+.report-print-header__meta-bar {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem 1rem;
+    font-size: 0.6875rem;
+}
+
+@media (min-width: 640px) {
+    .report-print-header__meta-bar {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.report-print-footer {
+    margin-top: 1.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #cbd5e1;
+    font-size: 0.625rem;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.report-print-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0.875rem 1rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.report-filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.report-filter-field__label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.report-print-document {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0;
+    padding: 1.5rem;
+    max-width: 210mm;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen {
+    .erp-print-only {
+        display: none;
+    }
+}
+
+.report-print-document--classic .report-print-body {
+    padding-top: 0;
+}
+
+/* Parties balance — same column layout, ERP report-table styling */
+.report-party-balance-block {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: #fff;
+}
+
+.report-party-balance-table {
+    table-layout: fixed;
+    border: none;
+}
+
+.report-party-balance-block .report-party-balance-table {
+    margin: 0;
+}
+
+.report-party-balance-table .col-sn {
+    width: 3.25rem;
+    text-align: center;
+}
+
+.report-party-balance-table .col-party {
+    width: auto;
+    text-align: left;
+}
+
+.report-party-balance-table .col-amount {
+    width: 8.5rem;
+}
+
+.report-party-balance-table thead th {
+    background: #f1f5f9;
+    border-bottom: 2px solid #cbd5e1;
+    color: #0f172a;
+}
+
+.report-party-balance-table tbody tr:hover td {
+    background: #f8fafc;
+}
+
+/* Summary is a separate table (not tfoot) so it never repeats on each printed page. */
+.report-party-balance-summary {
+    border-top: 2px solid #94a3b8;
+}
+
+.report-party-balance-summary tbody tr:hover td {
+    background: inherit;
+}
+
+.report-party-balance-total td {
+    background: #f1f5f9 !important;
+    border-top: none;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+.report-party-balance-net td {
+    background: #eff6ff !important;
+    border-bottom: none;
+}
+
+.report-party-balance-net td[colspan] {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.report-party-balance-section + .report-party-balance-section {
+    margin-top: 0.5rem;
+}
+
+.report-print-document--classic {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    max-width: 100%;
+    background: transparent;
+}
+
+/* ── Print media ── */
+@media print {
+    /* margin:0 suppresses the browser's own print header/footer
+       (date, document title, URL, page numbers). Page whitespace is
+       restored via padding on the printable document below. */
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+
+    html,
+    body {
+        background: #fff !important;
+    }
+
+    body.erp-printing {
+        background: #fff !important;
+    }
+
+    /* Radix tabs: never print inactive panels */
+    [data-state="inactive"] {
+        display: none !important;
+    }
+
+    .erp-no-print,
+    .report-workspace-nav,
+    .report-hub-header,
+    [data-print-hide="true"],
+    [role="tablist"] {
+        display: none !important;
+    }
+
+    /* Unlock staff shell so reports are not clipped by h-svh / overflow-hidden */
+    .erp-app-shell {
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .erp-app-shell main,
+    main {
+        height: auto !important;
+        overflow: visible !important;
+        padding-top: 0 !important;
+    }
+
+    .container {
+        max-width: none !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .report-workspace-canvas {
+        background: #fff !important;
+        padding: 0 !important;
+    }
+
+    .erp-print-only {
+        display: inline !important;
+    }
+
+    .report-print-document,
+    .report-document-preview {
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+        /* page whitespace (since @page margin is 0 to drop browser chrome) */
+        padding: 12mm 10mm !important;
+        background: #fff !important;
+        min-height: auto !important;
+    }
+
+    /* Scroll wrappers (e.g. shadcn Table's overflow-auto div) clip content
+       and break per-page table headers when printing. Let content flow. */
+    .report-print-document [class*="overflow-"],
+    .report-document-preview [class*="overflow-"] {
+        overflow: visible !important;
+    }
+
+    .report-print-banner {
+        border: 1px solid #334155 !important;
+        background: #f8fafc !important;
+        color: #0f172a !important;
+    }
+
+    .report-kpi,
+    .report-panel,
+    .report-meta-strip {
+        border: 1px solid #94a3b8 !important;
+        background: #fff !important;
+        box-shadow: none !important;
+        padding: 0.35rem 0.6rem !important;
+        margin-bottom: 0.6rem !important;
+    }
+
+    .report-print-header {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .report-print-header__meta-bar {
+        margin-top: 0 !important;
+        padding: 0.3rem 0.5rem !important;
+        font-size: 7.5pt !important;
+    }
+
+    .report-table {
+        font-size: 8pt;
+        page-break-inside: auto;
+    }
+
+    .report-table--compact {
+        font-size: 7pt;
+    }
+
+    .report-table thead {
+        display: table-header-group;
+    }
+
+    .report-table tfoot {
+        display: table-footer-group;
+    }
+
+    .report-table th {
+        background: #e2e8f0 !important;
+        padding: 3px 4px;
+        border: 1px solid #475569;
+    }
+
+    .report-table--compact th {
+        padding: 2px 3px;
+        font-size: 6.5pt;
+    }
+
+    .report-table td {
+        padding: 2px 4px;
+        border: 1px solid #cbd5e1;
+    }
+
+    .report-table--compact td {
+        padding: 1px 3px;
+        font-size: 7pt;
+    }
+
+    .report-table tbody tr:nth-child(even) td {
+        background: #f8fafc !important;
+    }
+
+    .report-table tfoot td {
+        background: #f1f5f9 !important;
+    }
+
+    .report-table .font-mono,
+    .report-amount {
+        font-size: 7.5pt;
+    }
+
+    .report-section-title {
+        font-size: 8pt;
+        page-break-after: avoid;
+    }
+
+    .report-avoid-break {
+        page-break-inside: avoid;
+    }
+
+    tr.report-avoid-break,
+    tr.report-row-total,
+    tr.report-group-header {
+        page-break-inside: avoid;
+    }
+
+    .report-print-two-col {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .report-print-tabs [data-state="inactive"] {
+        display: block !important;
+        margin-top: 12px;
+    }
+
+    tbody tr {
+        cursor: default !important;
+    }
+
+    /* Party balance: print matches screen; summary is not a repeating page footer. */
+    .report-party-balance-doc .report-party-balance-block {
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 0 !important;
+        overflow: visible !important;
+        break-inside: auto;
+        page-break-inside: auto;
+    }
+
+    .report-party-balance-doc .report-party-balance-table {
+        font-size: 8pt;
+    }
+
+    .report-party-balance-doc .report-party-balance-table th,
+    .report-party-balance-doc .report-party-balance-table td {
+        padding: 2px 4px;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    .report-party-balance-doc .report-party-balance-table thead th {
+        background: #f1f5f9 !important;
+        border-bottom: 2px solid #cbd5e1 !important;
+    }
+
+    .report-party-balance-doc .report-party-balance-table tbody tr:nth-child(even) td {
+        background: #f8fafc !important;
+    }
+
+    .report-party-balance-doc .report-party-balance-table tbody tr:hover td {
+        background: transparent;
+    }
+
+    .report-party-balance-doc .report-party-balance-summary {
+        display: table !important;
+        width: 100% !important;
+        border-top: 2px solid #94a3b8 !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        page-break-before: avoid;
+    }
+
+    .report-party-balance-doc .report-party-balance-summary thead,
+    .report-party-balance-doc .report-party-balance-summary tfoot {
+        display: none !important;
+    }
+
+    .report-party-balance-doc .report-party-balance-summary tbody {
+        display: table-row-group !important;
+    }
+
+    .report-party-balance-doc .report-party-balance-total td {
+        background: #f1f5f9 !important;
+    }
+
+    .report-party-balance-doc .report-party-balance-net td {
+        background: #eff6ff !important;
+    }
+
+    .report-print-footer::after {
+        counter-increment: page;
+        content: "Page " counter(page);
+    }
+}
+
+/* ── Screen optimization: let the report document fill the canvas width so
+   wide data tables stay inside the frame instead of overflowing the A4
+   border. Print still constrains to A4 via the @media print block above. ── */
+@media screen {
+    .report-print-document,
+    .report-document-preview {
+        max-width: 100%;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
