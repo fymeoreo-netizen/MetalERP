@@ -2,6 +2,8 @@ project_id = "metal-erp-bounty"
 
 [api]
 enabled = true
+schemas = ["public", "graphql_public", "erp"]
+extra_search_path = ["public", "extensions", "erp"]
 
 [db]
 major_version = 17
