@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate schema-only baseline
+        run: npm run validate:schema-baseline
+
       - name: Unit tests
         run: npm test
 

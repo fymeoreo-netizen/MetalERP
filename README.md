@@ -30,8 +30,9 @@ npm run dev
 ## Database
 
 The production migration history is not included because it contains historical
-operational data. See `supabase/migrations/README.md` before connecting a test
-Supabase project.
+operational data. A consolidated schema-only baseline is included for a new,
+isolated Supabase project. Run `npm run validate:schema-baseline` and read
+`supabase/migrations/README.md` before linking the test project.
 
 ## Security Testing
 

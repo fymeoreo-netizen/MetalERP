@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:rls": "node scripts/check-rls-policies.mjs",
+    "validate:schema-baseline": "node scripts/validate-schema-baseline.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
