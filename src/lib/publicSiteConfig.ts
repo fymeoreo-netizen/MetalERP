@@ -1,7 +1,5 @@
-/** Public decoy site + disguised staff login. */
-
-export const STAFF_LOGIN_PATH =
-    import.meta.env.VITE_STAFF_LOGIN_PATH?.trim() || "/archive/member-registry";
+/** Canonical authentication route for the testing deployment. */
+export const STAFF_LOGIN_PATH = "/";
 
 export const PUBLIC_SITE_NAME =
     import.meta.env.VITE_PUBLIC_SITE_NAME?.trim() ||

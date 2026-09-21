@@ -2,7 +2,6 @@ import { lazy } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
-import LandingPage from "./pages/public/LandingPage";
 import NotFoundPage from "./pages/public/NotFoundPage";
 import Login from "./pages/auth/Login";
 import TwoFactor from "./pages/auth/TwoFactor";
@@ -70,9 +69,8 @@ function StaffShellLayout() {
 function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Login />} />
             <Route path={NOT_FOUND_PATH} element={<NotFoundPage />} />
-            <Route path={STAFF_LOGIN_PATH} element={<Login />} />
             <Route path="/auth/login" element={<Navigate to={STAFF_LOGIN_PATH} replace />} />
             <Route path="/auth/2fa" element={<TwoFactor />} />
             <Route path="/auth/forgot-password" element={<ForgotPassword />} />

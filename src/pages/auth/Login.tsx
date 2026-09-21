@@ -91,13 +91,6 @@ export default function Login() {
         <PageMotion>
             <div className="flex min-h-screen flex-col bg-slate-50">
                 <div className="flex flex-1 flex-col items-center justify-center px-4 py-10">
-                    <Link
-                        to="/"
-                        className="absolute left-4 top-4 text-xs text-slate-500 transition-colors hover:text-slate-800 sm:left-6 sm:top-6"
-                    >
-                        ← Homepage
-                    </Link>
-
                     <div className="w-full max-w-[400px] rounded-xl border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
                         <div className="mb-8 text-center">
                             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
