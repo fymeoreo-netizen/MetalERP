@@ -7,3 +7,6 @@ extra_search_path = ["public", "extensions", "erp"]
 
 [db]
 major_version = 17
+
+[functions.create-researcher-account]
+verify_jwt = false
