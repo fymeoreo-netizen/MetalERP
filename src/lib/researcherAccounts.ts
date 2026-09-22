@@ -14,6 +14,21 @@ type ProvisionResponse = {
     credentials?: Partial<ResearcherCredentials>;
 };
 
+async function readFunctionError(error: unknown, payload: unknown): Promise<string | null> {
+    const responseMessage = (payload as ProvisionResponse | null)?.error;
+    if (typeof responseMessage === "string" && responseMessage.trim()) return responseMessage;
+
+    const context = (error as { context?: unknown } | null)?.context;
+    if (!(context instanceof Response)) return null;
+
+    try {
+        const responsePayload = await context.clone().json() as ProvisionResponse;
+        return typeof responsePayload.error === "string" ? responsePayload.error : null;
+    } catch {
+        return null;
+    }
+}
+
 export function parseResearcherCredentials(payload: unknown): ResearcherCredentials {
     const response = payload as ProvisionResponse | null;
     const credentials = response?.credentials;
@@ -39,7 +54,7 @@ export async function createResearcherAccount(role: ResearcherRole): Promise<Res
     });
 
     if (error) {
-        const message = (data as ProvisionResponse | null)?.error;
+        const message = await readFunctionError(error, data);
         throw new Error(message || "Could not create a researcher account. Please try again later.");
     }
 

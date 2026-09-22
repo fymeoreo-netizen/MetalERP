@@ -18,6 +18,11 @@ VITE_SUPABASE_PUBLISHABLE_KEY=YOUR_TEST_PUBLISHABLE_KEY
 Never use production URLs, keys, database passwords, API keys, or service-role
 credentials in this repository or its deployments.
 
+This testing build is hard-locked to the dedicated bounty Supabase project in
+both the client initialization and the deployment Content Security Policy. A
+different Supabase hostname causes startup to fail instead of reaching another
+environment.
+
 ## Development
 
 ```bash
@@ -43,5 +48,5 @@ Researchers can select either the Admin or Accountant role and use **Create
 dummy account** on the login page to generate a confirmed test account.
 Provisioning runs in a Supabase Edge
 Function so the service-role key never reaches the browser. Requests are limited
-to three accounts per requester per hour and 100 accounts globally per day; only
-a salted requester hash is retained, never the raw network address.
+to five active accounts per requester per hour and 100 active accounts globally
+per day; only a salted requester hash is retained, never the raw network address.

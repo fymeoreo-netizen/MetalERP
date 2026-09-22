@@ -31646,7 +31646,7 @@ CREATE POLICY "p_inventory_adjustments_all" ON "erp"."inventory_adjustments" USI
 -- Name: inventory_cost_components p_inventory_cost_components_all; Type: POLICY; Schema: erp; Owner: postgres
 --
 
-CREATE POLICY "p_inventory_cost_components_all" ON "erp"."inventory_cost_components" TO "authenticated" USING (true) WITH CHECK (true);
+CREATE POLICY "p_inventory_cost_components_select" ON "erp"."inventory_cost_components" FOR SELECT TO "authenticated" USING ((("erp"."has_permission"('transactions.read'::"text") OR "erp"."has_permission"('ledger.read'::"text") OR "erp"."has_role"('ADMIN'::"text") OR "erp"."has_role"('ACCOUNTANT'::"text"))));
 
 
 --
@@ -36517,7 +36517,7 @@ GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE "erp"."inventory_balances" TO "authen
 -- Name: TABLE "inventory_cost_components"; Type: ACL; Schema: erp; Owner: postgres
 --
 
-GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE "erp"."inventory_cost_components" TO "authenticated";
+GRANT SELECT ON TABLE "erp"."inventory_cost_components" TO "authenticated";
 
 
 --

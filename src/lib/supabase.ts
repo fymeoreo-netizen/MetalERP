@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { assertSecurityTestingProject } from "@/lib/securityTestingProject";
 
 const supabaseAnonKey = (
     (import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined) ||
@@ -31,6 +32,8 @@ const supabaseUrl = derivedUrl || envUrl;
 if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error("Supabase client is not configured. Check VITE_SUPABASE_URL and key.");
 }
+
+assertSecurityTestingProject(supabaseUrl, refFromKey);
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
