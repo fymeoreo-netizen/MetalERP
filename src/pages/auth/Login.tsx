@@ -18,7 +18,6 @@ import {
     type LoginFailure,
 } from "@/lib/loginErrors";
 import { usePageMeta } from "@/hooks/usePageMeta";
-import { DISGUISED_LOGIN_LABEL, PUBLIC_SITE_NAME } from "@/lib/publicSiteConfig";
 import {
     createResearcherAccount,
     type ResearcherCredentials,
@@ -40,8 +39,8 @@ export default function Login() {
     const [credentialsCopied, setCredentialsCopied] = useState(false);
 
     usePageMeta({
-        title: `${DISGUISED_LOGIN_LABEL} · ${PUBLIC_SITE_NAME}`,
-        description: "Verify membership records.",
+        title: "Sign in | MetalERP Security Testing",
+        description: "Sign in to the isolated MetalERP security-testing environment.",
         noindex: true,
     });
 
@@ -100,7 +99,7 @@ export default function Login() {
         setCredentialsCopied(false);
 
         try {
-            const credentials = await createResearcherAccount();
+            const credentials = await createResearcherAccount(loginAs);
             setResearcherCredentials(credentials);
             setEmail(credentials.email);
             setPassword(credentials.password);
@@ -124,8 +123,9 @@ export default function Login() {
     const handleCopyCredentials = async () => {
         if (!researcherCredentials) return;
         try {
+            const roleLabel = researcherCredentials.loginAs === "admin" ? "Admin" : "Accountant";
             await navigator.clipboard.writeText(
-                `Email: ${researcherCredentials.email}\nPassword: ${researcherCredentials.password}\nLogin as: Accountant`,
+                `Email: ${researcherCredentials.email}\nPassword: ${researcherCredentials.password}\nLogin as: ${roleLabel}`,
             );
             setCredentialsCopied(true);
             toast({ title: "Credentials copied" });
@@ -145,13 +145,13 @@ export default function Login() {
                     <div className="w-full max-w-[400px] rounded-xl border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
                         <div className="mb-8 text-center">
                             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                                {DISGUISED_LOGIN_LABEL}
+                                MetalERP security testing
                             </p>
                             <h1 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">
-                                Verify your identity
+                                Sign in to MetalERP
                             </h1>
                             <p className="mt-1.5 text-sm text-slate-500">
-                                Sign in with the credentials linked to your membership record.
+                                Use your assigned credentials or create a dummy researcher account.
                             </p>
                         </div>
 
@@ -191,6 +191,12 @@ export default function Login() {
                                             <dt className="text-slate-500">Password</dt>
                                             <dd className="break-all font-mono text-slate-800">{researcherCredentials.password}</dd>
                                         </div>
+                                        <div className="grid grid-cols-[58px_minmax(0,1fr)] gap-2">
+                                            <dt className="text-slate-500">Role</dt>
+                                            <dd className="font-medium text-slate-800">
+                                                {researcherCredentials.loginAs === "admin" ? "Admin" : "Accountant"}
+                                            </dd>
+                                        </div>
                                     </dl>
                                 </div>
                             )}
@@ -216,7 +222,7 @@ export default function Login() {
 
                             <div className="space-y-2">
                                 <Label htmlFor="login-role" className="text-xs font-medium text-slate-700">
-                                    Access tier
+                                    Access role
                                 </Label>
                                 <Select
                                     value={loginAs}
@@ -226,11 +232,11 @@ export default function Login() {
                                     }}
                                 >
                                     <SelectTrigger id="login-role" className={fieldClass}>
-                                        <SelectValue placeholder="Select tier" />
+                                        <SelectValue placeholder="Select role" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="admin">Registry administrator</SelectItem>
-                                        <SelectItem value="accountant">Standard member</SelectItem>
+                                        <SelectItem value="admin">Admin</SelectItem>
+                                        <SelectItem value="accountant">Accountant</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
@@ -268,10 +274,10 @@ export default function Login() {
                                 className="mt-2 h-11 w-full rounded-lg bg-slate-900 font-medium text-white hover:bg-slate-800"
                             >
                                 {isLoading ? (
-                                    "Verifying…"
+                                    "Signing in..."
                                 ) : (
                                     <>
-                                        Continue
+                                        Sign in
                                         <ArrowRight className="ml-2 h-4 w-4" />
                                     </>
                                 )}
@@ -294,13 +300,15 @@ export default function Login() {
                                 className="h-11 w-full rounded-lg border-slate-300 bg-white font-medium text-slate-800 hover:bg-slate-50"
                             >
                                 <UserPlus className="mr-2 h-4 w-4" />
-                                {isCreatingAccount ? "Creating account..." : "Create dummy account"}
+                                {isCreatingAccount
+                                    ? "Creating account..."
+                                    : `Create dummy ${loginAs === "admin" ? "Admin" : "Accountant"} account`}
                             </Button>
                         </form>
 
                         <div className="mt-8 flex items-center justify-center gap-2 border-t border-slate-100 pt-6 text-[11px] text-slate-400">
                             <Shield className="h-3.5 w-3.5" />
-                            Encrypted session
+                            Isolated security-testing environment
                         </div>
                     </div>
                 </div>

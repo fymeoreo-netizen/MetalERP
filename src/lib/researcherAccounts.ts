@@ -1,9 +1,11 @@
 import { supabase } from "@/lib/supabase";
 
+export type ResearcherRole = "admin" | "accountant";
+
 export type ResearcherCredentials = {
     email: string;
     password: string;
-    loginAs: "accountant";
+    loginAs: ResearcherRole;
 };
 
 type ProvisionResponse = {
@@ -19,7 +21,7 @@ export function parseResearcherCredentials(payload: unknown): ResearcherCredenti
         response?.ok !== true
         || typeof credentials?.email !== "string"
         || typeof credentials.password !== "string"
-        || credentials.loginAs !== "accountant"
+        || (credentials.loginAs !== "admin" && credentials.loginAs !== "accountant")
     ) {
         throw new Error(response?.error || "The server returned invalid researcher credentials.");
     }
@@ -31,9 +33,9 @@ export function parseResearcherCredentials(payload: unknown): ResearcherCredenti
     };
 }
 
-export async function createResearcherAccount(): Promise<ResearcherCredentials> {
+export async function createResearcherAccount(role: ResearcherRole): Promise<ResearcherCredentials> {
     const { data, error } = await supabase.functions.invoke("create-researcher-account", {
-        body: {},
+        body: { role },
     });
 
     if (error) {

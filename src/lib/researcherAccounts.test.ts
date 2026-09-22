@@ -17,10 +17,25 @@ describe("parseResearcherCredentials", () => {
         });
     });
 
-    it("rejects malformed or privileged credential responses", () => {
+    it("accepts a complete admin credential response", () => {
+        expect(parseResearcherCredentials({
+            ok: true,
+            credentials: {
+                email: "admin-researcher@example.test",
+                password: "generated-password",
+                loginAs: "admin",
+            },
+        })).toEqual({
+            email: "admin-researcher@example.test",
+            password: "generated-password",
+            loginAs: "admin",
+        });
+    });
+
+    it("rejects malformed or unsupported credential responses", () => {
         expect(() => parseResearcherCredentials({
             ok: true,
-            credentials: { email: "x", password: "y", loginAs: "admin" },
+            credentials: { email: "x", password: "y", loginAs: "owner" },
         })).toThrow("invalid researcher credentials");
     });
 

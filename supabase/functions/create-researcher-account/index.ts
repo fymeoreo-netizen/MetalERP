@@ -56,6 +56,19 @@ Deno.serve(async (req) => {
     if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
     if (req.method !== "POST") return json({ ok: false, error: "Method not allowed" }, 405, cors);
 
+    let requestBody: { role?: unknown } = {};
+    try {
+        requestBody = await req.json();
+    } catch {
+        requestBody = {};
+    }
+
+    const loginAs = requestBody.role;
+    if (loginAs !== "admin" && loginAs !== "accountant") {
+        return json({ ok: false, error: "Select either the Admin or Accountant role." }, 400, cors);
+    }
+    const roleCode = loginAs.toUpperCase();
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
     if (!supabaseUrl || !serviceRoleKey) {
@@ -68,7 +81,7 @@ Deno.serve(async (req) => {
     });
 
     const token = randomToken(12).toLowerCase();
-    const email = `researcher-${Date.now().toString(36)}-${token.slice(0, 8)}@metalerp.test`;
+    const email = `researcher-${loginAs}-${Date.now().toString(36)}-${token.slice(0, 8)}@metalerp.test`;
     const password = `R!${randomToken(18)}9a`;
     const requesterHash = await sha256(
         `${requesterAddress(req)}|${serviceRoleKey.slice(-24)}`,
@@ -98,7 +111,11 @@ Deno.serve(async (req) => {
         email,
         password,
         email_confirm: true,
-        user_metadata: { display_name: "Security Researcher", account_type: "researcher" },
+        user_metadata: {
+            display_name: `Security Researcher (${roleCode})`,
+            account_type: "researcher",
+            researcher_role: roleCode,
+        },
     });
 
     if (createError || !created.user) {
@@ -110,6 +127,7 @@ Deno.serve(async (req) => {
         p_reservation_id: reservationId,
         p_user_id: created.user.id,
         p_email: email,
+        p_role_code: roleCode,
     });
 
     if (completeError) {
@@ -123,7 +141,7 @@ Deno.serve(async (req) => {
         credentials: {
             email,
             password,
-            loginAs: "accountant",
+            loginAs,
         },
     }, 201, cors);
 });

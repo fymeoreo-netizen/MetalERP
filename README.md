@@ -39,8 +39,9 @@ isolated Supabase project. Run `npm run validate:schema-baseline` and read
 Only the separately published bounty application and its dedicated Supabase
 project are authorized testing targets. Production systems are out of scope.
 
-Researchers can use **Create dummy account** on the login page to generate a
-confirmed, restricted `ACCOUNTANT` account. Provisioning runs in a Supabase Edge
+Researchers can select either the Admin or Accountant role and use **Create
+dummy account** on the login page to generate a confirmed test account.
+Provisioning runs in a Supabase Edge
 Function so the service-role key never reaches the browser. Requests are limited
 to three accounts per requester per hour and 100 accounts globally per day; only
 a salted requester hash is retained, never the raw network address.
