@@ -38,6 +38,11 @@ for (const file of tracked) {
     const lower = file.toLowerCase();
     const extension = extname(lower);
 
+    if ((lower === ".env" || lower.includes("/.env")) && !lower.endsWith(".example")) {
+        failures.push(`${file}: environment files may contain credentials or private endpoints`);
+        continue;
+    }
+
     if (blockedRoots.some((root) => lower.startsWith(root))) {
         failures.push(`${file}: confidential artifact directory`);
         continue;
