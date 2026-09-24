@@ -47,3 +47,22 @@ scripts/patch-unified-ledgers.py
 # Supabase migration scratch files (underscore- and dot-prefixed working files)
 supabase/migrations/_*
 supabase/migrations/.*
+
+# Confidential operational data must never enter source control.
+docs/
+data/
+reports/
+exports/
+imports/
+backups/
+.firecrawl/
+*.pdf
+*.csv
+*.tsv
+*.xls
+*.xlsx
+*.ods
+*.dump
+*.backup
+*.bak
+*.sql.gz

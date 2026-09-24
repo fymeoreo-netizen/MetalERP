@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:rls": "node scripts/check-rls-policies.mjs",
+    "security:confidential-data": "node scripts/check-confidential-artifacts.mjs",
     "validate:schema-baseline": "node scripts/validate-schema-baseline.mjs",
     "preview": "vite preview",
     "test": "vitest run",
